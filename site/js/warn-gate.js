@@ -28,10 +28,10 @@
   d.setAttribute('aria-label', 'A sealed door');
   const img = new URL('../images/gate/', SELF).href;
   const lib = new URL('../images/gate-library/', SELF).href;
-  const GATE_V = '1795612000';
+  const GATE_V = '1795624000';
   const plate = (name, cls, extra) => `<picture class="wg-plate-pic"><source media="(max-width:700px) and (orientation: portrait)" srcset="${lib}${name}-phone.webp?v=${GATE_V}"><img class="wg-plate ${cls}" src="${lib}${name}.webp?v=${GATE_V}" alt="" width="1920" height="1080" decoding="async"${extra || ''}></picture>`;
   d.setAttribute('style', `--alt:url('${img}altar-wide.webp');--alt-sm:url('${img}altar-wide-sm.webp');--alt-t:url('${img}altar-tall.webp');--circ:url('${img}circle.jpg');--circ-sm:url('${img}circle-sm.jpg');--corner:url('${img}corner.jpg')`);
-  const tpl = `<svg class="wg-ink-defs" aria-hidden="true" focusable="false" width="0" height="0">
+  const tpl = `<style id="pb-cover-title">/* Title is gold-tooled on the cover; wording lives in entrance_title.py and in .wg-lib-hint (kept for assistive tech). */.pb-wg .wg-lib-hint,.pb-wg .wg-her-hint{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;opacity:0!important;bottom:auto!important;pointer-events:none!important}</style><svg class="wg-ink-defs" aria-hidden="true" focusable="false" width="0" height="0">
   <defs>
     <filter id="wgGall" x="-8%" y="-40%" width="116%" height="180%" color-interpolation-filters="sRGB">
       <feTurbulence type="fractalNoise" baseFrequency="0.035 0.65" numOctaves="3" seed="11" result="n1"/>
@@ -133,6 +133,7 @@
     <button type="button" class="wg-hot wg-hot-altar" aria-label="Approach the sealed door"></button>
     <button type="button" class="wg-hot wg-hot-letter" aria-label="Open the sealed letter"></button>
     <button type="button" class="wg-hot wg-hot-her" aria-label="Approach Ballerina to enter" aria-describedby="pbwg-her-hint" disabled></button>
+    <!-- wording: keep in sync with entrance_title.py TITLE_LINE_1 / TITLE_LINE_2 -->
     <p class="wg-lib-hint"><span>The door is sealed</span><span class="wg-lib-latin">Atramentum Custodit</span></p>
     <p class="wg-her-hint" id="pbwg-her-hint"><span>Approach her</span></p>
     <span class="wg-lib-vig" aria-hidden="true"></span>
