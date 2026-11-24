@@ -9,8 +9,8 @@ from pathlib import Path
 
 OLD_BASE = "https://porcelainballerina.github.io/porcelainballerina-test"
 NEW_BASE = "https://porcelainballerina.github.io/porcelainballerina-new"
-NEW_V = "1795602000"
-OLD_VS = ("1795547111", "1795594000")
+NEW_V = "1795612000"
+OLD_VS = ("1795547111", "1795594000", "1795602000")
 TEXT_SUF = {".html", ".js", ".css", ".json", ".txt", ".xml", ".webmanifest", ".svg", ".md"}
 SKIP_DIRS = {".git", ".github", ".staging-payload", ".src"}
 SKIP_FILES = {"CNAME", "sealed-room.html"}
