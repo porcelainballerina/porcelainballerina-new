@@ -1,0 +1,39 @@
+name: Deploy GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    if: github.repository == 'porcelainballerina/porcelainballerina-new'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: overlay
+      - uses: actions/checkout@v4
+        with:
+          repository: porcelainballerina/porcelainballerina-test
+          ref: 9b53af6628e47308a28ef178b565729bec6e7ac2
+          path: seed
+          persist-credentials: false
+      - name: Assemble test site
+        run: python3 overlay/assemble.py --seed seed --overlay overlay --dest _site
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
