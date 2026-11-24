@@ -6,3 +6,5 @@ It is not the live site. It has no custom domain. Search engines are asked not t
 
 - Live site (untouched by this project): https://porcelainballerina.com/
 - This preview: https://porcelainballerina.github.io/porcelainballerina-new/
+
+If the preview 404s, enable Pages once in the repo: Settings → Pages → Build and deployment → Source: **GitHub Actions**. Then re-run the “Deploy GitHub Pages” workflow on `main`.
