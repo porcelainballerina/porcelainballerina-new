@@ -35,6 +35,24 @@ def copy_seed(seed: Path, dest: Path) -> None:
             print("removed", bad)
 
 
+
+def decode_plates(overlay: Path, dest: Path) -> None:
+    import base64
+    plate_dir = overlay / "plates"
+    if not plate_dir.is_dir():
+        return
+    out_dir = dest / "images" / "gate-library"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for src in sorted(plate_dir.glob("*.webp.b64")):
+        raw = "".join(src.read_text().split())
+        if len(raw) % 4 != 0:
+            raise SystemExit(f"bad b64 length for {src.name}: {len(raw)}")
+        data = base64.b64decode(raw)
+        name = src.name[:-4] if src.name.endswith(".b64") else src.name
+        (out_dir / name).write_bytes(data)
+        print("decoded", name, len(data))
+
+
 def overlay_copy(overlay_site: Path, dest: Path) -> None:
     if not overlay_site.is_dir():
         raise SystemExit(f"missing overlay site: {overlay_site}")
@@ -106,6 +124,7 @@ def main() -> None:
     overlay_site = args.overlay / "site" if (args.overlay / "site").is_dir() else args.overlay
     print("overlay", overlay_site)
     overlay_copy(overlay_site, args.dest)
+    decode_plates(args.overlay, args.dest)
     rewrite_tree(args.dest)
     assert_safe(args.dest)
     print("assembled", args.dest)
